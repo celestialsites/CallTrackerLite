@@ -1,0 +1,66 @@
+﻿<div class='city-addedit-container'>
+    <a ng-click="showAddEdit()" href="javascript:void(0);">{{Name}}</a>
+
+    <div class="modal fade" id="mdlAddEditCity-{{editRegion.CityId}}" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>{{title}}</h3>
+                </div>
+                <div ng-form="nwscDispatchCityForm" class="dnnForm">
+                    <fieldset>
+                        <legend></legend>
+                        <div class="dnnFormCity">
+                            <label class="dnnLabel" for="txtCityName">City Name</label>
+                            <input id="txtCityName" name="txtCityName"
+                                   ng-model="editRegion.CityName"
+                                   tabindex="1"
+                                   placeholder="Enter City name"
+                                   class="input"
+                                   type="text" required />
+                            <span style="display: inline;" class="dnnFormMessage dnnFormError"
+                                  ng-show="(nwscDispatchCityForm.txtCityName.$dirty || invalidSubmitAttempt) && nwscDispatchCityForm.txtCityName.$error.required">
+                                City name is required
+                            </span>
+                        </div>
+                        <p></p>
+                        <div class="dnnFormCity">
+                            <label class="dnnLabel" for="txtRegionName">Region</label>
+                            <input id="txtRegionName" name="txtRegionName"
+                                   ng-model="editRegion.RegionName"
+                                   tabindex="1"
+                                   placeholder="Enter Region name"
+                                   class="input"
+                                   type="text" required />
+                            <span style="display: inline;" class="dnnFormMessage dnnFormError"
+                                  ng-show="(nwscDispatchCityForm.txtRegionName.$dirty || invalidSubmitAttempt) && nwscDispatchCityForm.txtRegionName.$error.required">
+                                Region name is required
+                            </span>
+                        </div>
+                        <p></p>
+                        <div class="dnnFormCity">
+                            <label class="dnnLabel" for="txtUtilityType">Utility Type</label>
+                            <input id="txtUtilityType" name="txtUtilityType"
+                                   ng-model="editRegion.UtilityType"
+                                   tabindex="1"
+                                   placeholder="Enter Utility Type"
+                                   class="input"
+                                   type="text" required />
+                            <span style="display: inline;" class="dnnFormMessage dnnFormError"
+                                  ng-show="(nwscDispatchCityForm.txtUtilityType.$dirty || invalidSubmitAttempt) && nwscDispatchCityForm.txtUtilityType.$error.required">
+                                Utility Type is required
+                            </span>
+                        </div>
+                        <p></p>
+                    </fieldset>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-block">
+                        <button type="button" class="dnnSecondaryAction" ng-click="cancelButton()">Cancel</button>
+                        <button type="button" class="dnnPrimaryAction" ng-click="saveButton($event, nwscDispatchCityForm)">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+﻿<div class='dpcode-addedit-container'>
+    <a ng-click="showAddEdit()" href="javascript:void(0);">{{Name}}</a>
+
+    <div class="modal fade" id="mdlAddEditDpcode-{{editEntity.DispatchCodeId}}" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>{{title}}</h3>
+                </div>
+                <p></p>
+                <div ng-form="nwscDispatchCodeForm" class="dnnForm">
+                    <fieldset>
+                        <legend></legend>
+                        <div class="dnnFormDPCode">
+                            <label class="dnnLabel" for="txtDispatchCodeName">Name</label>
+                            <input id="txtDispatchCodeName" name="txtDispatchCodeName"
+                                   ng-model="editEntity.DispatchCodeName"
+                                   tabindex="1"
+                                   placeholder="Enter name"
+                                   class="input"
+                                   type="text" required />
+                            <span style="display: inline;" class="dnnFormMessage dnnFormError"
+                                  ng-show="(nwscDispatchCodeForm.txtDispatchCodeName.$dirty || invalidSubmitAttempt) && nwscDispatchCodeForm.txtDispatchCodeName.$error.required">
+                                Dispatcher name is required
+                            </span>
+                        </div>
+                        <p></p>
+                    </fieldset>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-block">
+                        <button type="button" class="dnnSecondaryAction" ng-click="cancelButton()">Cancel</button>
+                        <button type="button" class="dnnPrimaryAction" ng-click="saveButton($event, nwscDispatchCodeForm)">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

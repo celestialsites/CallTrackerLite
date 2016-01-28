@@ -1,0 +1,99 @@
+﻿<div class='dispatcher-addedit-container'>
+    <a ng-click="showAddEdit()" href="javascript:void(0);">{{Name}}</a>
+
+    <div class="modal fade" id="mdlAddEditDispatcher-{{editDispatcher.DispatcherId}}" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>{{title}}</h3>
+                </div>
+                <p></p>
+                <div ng-form="nwscDispatcherForm" class="dnnForm">
+                    <fieldset>
+                        <legend></legend>
+                        <div class="dnnFormDispatcher">
+                            <label class="dnnLabel" for="txtDispatcherName">Name</label>
+                            <input id="txtDispatcherName" name="txtDispatcherName"
+                                   ng-model="editDispatcher.DispatcherName"
+                                   tabindex="1"
+                                   placeholder="Enter name"
+                                   class="input"
+                                   type="text" required />
+                            <span style="display: inline;" class="dnnFormMessage dnnFormError"
+                                  ng-show="(nwscDispatcherForm.txtDispatcherName.$dirty || invalidSubmitAttempt) && nwscDispatcherForm.txtDispatcherName.$error.required">
+                                Dispatcher name is required
+                            </span>
+                        </div>
+                        <p></p>
+                        <div class="dnnFormDispatcher">
+                            <label class="dnnLabel" for="txtDispatcherType">Dispatcher Type</label>
+                            <input id="txtDispatcherType" name="txtDispatcherType"
+                                   ng-model="editDispatcher.DispatcherType"
+                                   tabindex="1"
+                                   placeholder="Enter Dispatcher Type"
+                                   class="input"
+                                   type="text" required />
+                            <span style="display: inline;" class="dnnFormMessage dnnFormError"
+                                  ng-show="(nwscDispatcherForm.txtDispatcherType.$dirty || invalidSubmitAttempt) && nwscDispatcherForm.txtDispatcherType.$error.required">
+                                Dispatcher Type is required
+                            </span>
+                        </div>
+                        <p></p>
+                        <div class="dnnFormDispatcher">
+                            <label class="dnnLabel" for="txtDispatcherCellPhone" tabindex="-1">Cell Phone</label>
+                            <textarea name="txtDispatcherCellPhone"
+                                      ng-model="editDispatcher.CellPhone"
+                                      tabindex="2"
+                                      type="text"
+                                      rows="1"
+                                      class="input"
+                                      placeholder="Enter Cell Phone" required />
+                            <span style="display: inline;" class="dnnFormMessage dnnFormError"
+                                  ng-show="(nwscDispatcherForm.txtDispatcherCellPhone.$dirty || invalidSubmitAttempt) && nwscDispatcherForm.txtDispatcherCellPhone.$error.required">
+                                Cell Phone is required
+                            </span>
+                        </div>
+                        <p></p>
+                        <div class="dnnFormDispatcher">
+                            <label class="dnnLabel" for="txtDispatcherHomePhone" tabindex="-1">Home Phone</label>
+                            <textarea name="txtDispatcherHomePhone"
+                                      ng-model="editDispatcher.HomePhone"
+                                      tabindex="3"
+                                      type="text"
+                                      rows="1"
+                                      class="input"
+                                      placeholder="Enter Home Phone" required />
+                            <span style="display: inline;" class="dnnFormMessage dnnFormError"
+                                  ng-show="(nwscDispatcherForm.txtDispatcherHomePhone.$dirty || invalidSubmitAttempt) && nwscDispatcherForm.txtDispatcherHomePhone.$error.required">
+                                Home Phone is required
+                            </span>
+                        </div>
+                        <p></p>
+                        <div class="dnnFormDispatcher">
+                            <label class="dnnLabel" for="txtDispatcherAltPhone" tabindex="-1">Alternate Phone</label>
+                            <textarea name="txtDispatcherAltPhone"
+                                      ng-model="editDispatcher.AltPhone"
+                                      tabindex="4"
+                                      type="text"
+                                      rows="1"
+                                      class="input"
+                                      placeholder="Enter Alternate Phone" required />
+                            <span style="display: inline;" class="dnnFormMessage dnnFormError"
+                                  ng-show="(nwscDispatcherForm.txtDispatcherAltPhone.$dirty || invalidSubmitAttempt) && nwscDispatcherForm.txtDispatcherAltPhone.$error.required">
+                                Alternate Phone is required
+                            </span>
+                        </div>
+                    </fieldset>
+                </div>
+                <p></p>
+                <div class="modal-footer">
+                    <div class="btn-block">
+                        <button type="button" class="dnnSecondaryAction" ng-click="cancelButton()">Cancel</button>
+                        <button type="button" class="dnnPrimaryAction" ng-click="saveButton($event, nwscDispatcherForm)">Save</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

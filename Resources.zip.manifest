@@ -1,0 +1,68 @@
+﻿<dotnetnuke type="ResourceFile" version="5.0">
+  <files>
+    <file>
+      <path />
+      <name>Edit.ascx</name>
+    </file>
+    <file>
+      <path />
+      <name>License.txt</name>
+    </file>
+    <file>
+      <path />
+      <name>module.css</name>
+    </file>
+    <file>
+      <path />
+      <name>ReleaseNotes.txt</name>
+    </file>
+    <file>
+      <path />
+      <name>Settings.ascx</name>
+    </file>
+    <file>
+      <path />
+      <name>View.ascx</name>
+    </file>
+    <file>
+      <path>App_LocalResources/</path>
+      <name>Edit.ascx.resx</name>
+    </file>
+    <file>
+      <path>App_LocalResources/</path>
+      <name>Settings.ascx.resx</name>
+    </file>
+    <file>
+      <path>App_LocalResources/</path>
+      <name>View.ascx.resx</name>
+    </file>
+    <file>
+      <path>Documentation/</path>
+      <name>Documentation.css</name>
+    </file>
+    <file>
+      <path>Documentation/</path>
+      <name>Documentation.html</name>
+    </file>
+    <file>
+      <path>Resources/js/</path>
+      <name>01-ctliteadmin-controllers-debug.js</name>
+    </file>
+    <file>
+      <path>Resources/js/</path>
+      <name>02-ctliteadmin-directives-debug.js</name>
+    </file>
+    <file>
+      <path>Resources/js/</path>
+      <name>03-ctliteadmin-app-debug.js</name>
+    </file>
+    <file>
+      <path>Resources/js/</path>
+      <name>dnnuclear-dnn.js</name>
+    </file>
+    <file>
+      <path>Resources/js/templates/</path>
+      <name>dispatcher-addedit.html</name>
+    </file>
+  </files>
+</dotnetnuke>

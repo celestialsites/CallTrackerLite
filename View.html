@@ -1,0 +1,432 @@
+﻿[JavaScript:{ jsname: "AngularJS" }]
+[JavaScript:{ path: "~/DesktopModules/CTLiteAdmin/Resources/js/nwsc-dnn-bs.js"}]
+[JavaScript:{ path: "~/DesktopModules/CTLiteAdmin/Resources/js/01-ctliteadmin-controllers.js"}]
+[JavaScript:{ path: "~/DesktopModules/CTLiteAdmin/Resources/js/02-ctliteadmin-dispatcher-directive.js"}]
+[JavaScript:{ path: "~/DesktopModules/CTLiteAdmin/Resources/js/02-ctliteadmin-dpcode-directive.js"}]
+[JavaScript:{ path: "~/DesktopModules/CTLiteAdmin/Resources/js/02-ctliteadmin-region-directive.js"}]
+[JavaScript:{ path: "~/DesktopModules/CTLiteAdmin/Resources/js/02-ctliteadmin-ctcall-directive.js"}]
+[JavaScript:{ path: "~/DesktopModules/CTLiteAdmin/Resources/js/02-ctliteadmin-detail-directive.js"}]
+[JavaScript:{ path: "~/DesktopModules/CTLiteAdmin/Resources/js/03-ctliteadmin-app.js"}]
+[Css:{path: "~/DesktopModules/CTLiteAdmin/Resources/css/sortorder-widget.css"}]
+
+<div nwsc-app="myCTLAdminApp" id="[ModuleContext:ModuleId]" data-modulepath="/DesktopModules/CTLiteAdmin/"
+     ng-init="vm.init(true)" ng-controller="mainController as vm">
+
+    <div ng-switch on="vm.show">
+
+        <!--  Always show this section-->
+        <table width="100%" class="table table-striped ">
+            <tr>
+                <td align="Center">
+                    <a  class="btn btn-primary " ng-click="vm.openCalls()">Open Calls</a> 
+                </td>
+                <td align="Center">
+                    <a  class="btn btn-primary " ng-click="vm.todayCalls()">All Calls</a>
+                </td>
+                <td align="Center">
+                    <a class="btn btn-primary " ng-click="vm.adminDispatchers()">Dispatcher Administration</a>
+                </td>
+                <td align="Center">
+                    <a class="btn btn-primary " ng-click="vm.adminCitys()">Region Administration</a>
+                </td>
+                <td align="Center">
+                    <a class="btn btn-primary " ng-click="vm.adminDPCodes()">Dispatch Code Administration</a>
+                </td>
+                <td>
+                    <a class="btn btn-warning " ng-click="vm.cancel()">Cancel</a>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+        
+        <!-- Default View Begin -->
+        <div ng-switch-when="default"></div>
+        <!-- End Default View  -->
+
+        <!-- Open Calls View Begin -->
+        <div ng-switch-when="opencalls">
+            <p></p>
+            <h2>Open Calls</h2>
+            <label>Search: <input ng-model="vm.searchText"></label>
+
+         
+                <add-edit-ctcall name="Add Call" title="Add New Call"
+                                 save-function="vm.createUpdateCall"
+                                 refresh-ctcalls="vm.getAllOpenCalls"
+                                 city-list="vm.citys"
+                                 ng-show="vm.EditMode "></add-edit-ctcall>
+            
+            <table  width="100%" class="table table-striped">
+                <tr>
+                    <th align="left"  >
+                        <a ng-click="vm.order('CallDate')">Call Date</a>
+                        <span class="sortorder" ng-show="vm.predicate === 'CallDate'" ng-class="{reverse:vm.reverse}"></span>
+                    </th>
+                    <th align="left" >
+                        <a ng-click="vm.order('CallType')">Call Type</a>
+                        <span class="sortorder" ng-show="vm.predicate === 'CallType'" ng-class="{reverse:vm.reverse}"></span>
+                    </th>
+                    <th align="left" >
+                        <a ng-click="vm.order('CallerName')">Caller Name</a>
+                        <span class="sortorder" ng-show="vm.predicate === 'CallerName'" ng-class="{reverse:vm.reverse}"></span>
+                    </th>
+                    <th align="left">
+                        <a ng-click="vm.order('CallBackNumber')">Call Back Number</a>
+                        <span class="sortorder" ng-show="vm.predicate === 'CallBackNumber'" ng-class="{reverse:vm.reverse}"></span>
+                    </th>
+                    <th align="justify">Action</th>
+                </tr>
+                <tr ng-repeat="opencall in vm.opencalls | orderBy:vm.predicate:vm.reverse | filter:vm.searchText ">
+                    <td><small>{{opencall.CallDate | date: 'MM/dd/yyyy hh:mm a '}}</small></td>
+                    <td ><small>{{opencall.CallType}}</small></td>
+                    <td ><small>{{opencall.CallerName}}</small></td>
+                    <td ><small>{{opencall.CallBackNumber}}</small></td>
+                    <td align="justify"><small>
+                            <add-edit-ctcall name="Edit" title="Edit Call"
+                                             save-function="vm.createUpdateCall"
+                                             refresh-ctcalls="vm.getAllOpenCalls"
+                                             edit-ctcall="opencall"
+                                             city-list="vm.citys"
+                                             ng-show="vm.EditMode "
+                                             style="float: left; margin-right: 10px;"></add-edit-ctcall>
+
+                            <a ng-click="vm.reviewCallDetails(opencall, $index)" ng-show="vm.EditMode" href="javascript:void(0);">Dispatch</a>
+                            <a ng-click="vm.deleteCtOpencall(opencall, $index)" ng-show="vm.EditMode" href="javascript:void(0);"> Delete </a>
+                        </small>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- End Open Calls View  -->
+
+        <!-- Todays Calls View Begin -->
+        <div ng-switch-when="calls">
+            <p></p>
+            <h2>All Calls</h2>
+            <label>Search: <input ng-model="vm.searchText"></label>
+
+            <add-edit-ctcall name="Add Call" title="Add New Call"
+                                 save-function="vm.createUpdateCall"
+                                 refresh-ctcalls="vm.getAllCalls"
+                                 city-list="vm.citys"
+                                 ng-show="vm.EditMode "></add-edit-ctcall>
+      
+            <table width="100%" class="table table-striped">
+                <tr> 
+                    
+                    <th align="left">
+                        <a ng-click="vm.order('CallDate')">Call Date</a>
+                        <span class="sortorder" ng-show="vm.predicate === 'CallDate'" ng-class="{reverse:vm.reverse}"></span>
+                    </th>
+                    <th align="left">
+                        <a ng-click="vm.order('CallDate')">Call Time</a>
+                        <span class="sortorder" ng-show="vm.predicate === 'CallDate'" ng-class="{reverse:vm.reverse}"></span>
+                    </th>
+                        <th align="left">
+                            <a ng-click="vm.order('CallType')"> Call Type </a>
+                            <span class="sortorder" ng-show="vm.predicate === 'CallType'" ng-class="{reverse:vm.reverse}"></span>
+                        </th>
+                        <th align="left">
+                            <a ng-click="vm.order('CallerName')"> Caller Name </a>
+                            <span class="sortorder" ng-show="vm.predicate === 'CallerName'" ng-class="{reverse:vm.reverse}"></span>
+                        </th>
+                        <th align="left">
+                            <a ng-click="vm.order('CallerAddress')"> Caller Address </a>
+                            <span class="sortorder" ng-show="vm.predicate === 'CallerAddress'" ng-class="{reverse:vm.reverse}"></span>
+                        </th>
+                        <th align="left">
+                            <a ng-click="vm.order('CallBackNumber')"> Call Back Number </a>
+                            <span class="sortorder" ng-show="vm.predicate === 'CallBackNumber'" ng-class="{reverse:vm.reverse}"></span>
+                        </th>
+                        <th align="left">
+                            <a ng-click="vm.order('CrossStreet')"> Cross Street </a>
+                            <span class="sortorder" ng-show="vm.predicate === 'CrossStreet'" ng-class="{reverse:vm.reverse}"></span>
+                        </th>
+                        <th align="left">
+                            <a ng-click="vm.order('CallerCity')"> City </a>
+                            <span class="sortorder" ng-show="vm.predicate === 'CallerCity'" ng-class="{reverse:vm.reverse}"></span>
+                        </th>
+                        <th align="left">
+                            <a ng-click="vm.order('UtilityType')"> Utility Type </a>
+                            <span class="sortorder" ng-show="vm.predicate === 'UtilityType'" ng-class="{reverse:vm.reverse}"></span>
+                        </th>
+                        <th align="left">
+                            <a ng-click="vm.order('DispatchFlag')"> Dispatch Flag </a>
+                            <span class="sortorder" ng-show="vm.predicate === 'DispatchFlag'" ng-class="{reverse:vm.reverse}"></span>
+                        </th>
+                        <th align="justify">Action</th>
+                    
+                </tr>
+                <tr ng-repeat="call in vm.calls | orderBy:vm.predicate:vm.reverse | filter:vm.searchText">
+                    <td><small>{{call.CallDate | date: 'MM/dd/yyyy'}}</small></td>
+                    <td><small>{{call.CallDate | date: 'hh:mm a'}}</small></td>
+                    <td><small>{{call.CallType}}</small></td>
+                    <td><small>{{call.CallerName}}</small></td>
+                    <td><small>{{call.CallerAddress}}</small></td>
+                    <td><small>{{call.CallBackNumber}}</small></td>
+                    <td><small>{{call.CrossStreet}}</small></td>
+                    <td><small>{{call.CallerCity}}</small></td>
+                    <td><small>{{call.UtilityType}}</small></td>
+                    <td align="center"><small>{{call.DispatchFlag}}</small></td>
+                    <td align="justify"> <small>
+                            <add-edit-ctcall name="Edit" title="Edit Call"
+                                                save-function="vm.createUpdateCall"
+                                                refresh-ctcalls="vm.getAllCalls"
+                                                edit-ctcall="call"
+                                                city-list="vm.citys"
+                                                ng-show="vm.EditMode "
+                                                style="float: left; margin-right: 10px;"></add-edit-ctcall>
+                            <a ng-click="vm.reviewCallDetails(call, $index)" ng-show="vm.EditMode" href="javascript:void(0);">Dispatch</a>
+                            <a ng-click="vm.deleteCtcall(call, $index)" ng-show="vm.EditMode" href="javascript:void(0);">Delete</a>
+                        </small>
+                    </td>
+               </tr>
+            </table>
+        </div>
+        <!-- End Todays Calls View  -->
+
+        <!-- Todays Call Details View Begin -->
+        <div ng-switch-when="details">
+            <p></p>
+            <h2>Call Details</h2>
+
+            <table width="100%" class="table table-striped">
+                <tr>
+                    <th width="20%" align="left" >Call Information</th>
+                    <th width="80%">Dispatch Data</th>
+                </tr>
+                <tr> 
+                    <!-- Call Details -->
+                    <td width="25%" align="left" valign="top" >
+                        <ul>
+                            <li>
+                                <span>CSR:  {{vm.ctcalls.CSR}}</span>
+                            </li>
+                            <li>
+                                <span>Call Type:  {{vm.ctcalls.CallType}}</span>
+                            </li>
+                            <li>
+                                <span>Call ID:  {{vm.ctcalls.CallId}}</span>
+                            </li>
+                            <li>
+                                <span>Call Type:  {{vm.ctcalls.CallType}}</span>
+                            </li>
+                            <li>
+                                <span>Name:  {{vm.ctcalls.CallerName}}</span>
+                            </li>
+                            <li>
+                                <span>Address:  {{vm.ctcalls.CallerAddress}}</span>
+                            </li>
+                            <li>
+                                <span>City:  {{vm.ctcalls.CallerCity}}</span>
+                            </li>
+                            <li>
+                                <span>Region:  {{vm.ctcalls.Region}}</span>
+                            </li>
+                            <li>
+                                <span>Utility:  {{vm.ctcalls.UtilityType}}</span>
+                            </li>
+                            <li>
+                                <span>Call Back #:  {{vm.ctcalls.CallBackNumber}}</span>
+                            </li>
+                            <li>
+                                <span>Comments:  {{vm.ctcalls.Comments}}</span>
+                            </li>
+                            <li>
+                                <span>Cross Street:  {{vm.ctcalls.CrossStreet}}</span>
+                            </li>
+                            <li>
+                                <span>Call Date:  {{vm.ctcalls.CallDate | date: 'MM/dd/yyyy hh:mm a'}}</span>
+                            </li>
+                        </ul>
+                    </td>
+                    <!-- Dispatch Details -->
+                    <td width="100%" valign="top">
+                        <add-edit-ctdetail name="Add Details" title="Add Details"
+                                          save-function="vm.createUpdateDetail"
+                                          edit-call="vm.ctcalls"
+                                          refresh-calldetails="vm.getAllCallDetails"
+                                          dispatcher-list="vm.dispatchers"
+                                          dispatchcode-list="vm.dpcodes"
+                                          ng-show="vm.EditMode "
+                                          style="float: left; margin-right: 10px;"></add-edit-ctdetail>
+
+                            <table width="100%" class="table table-striped">
+                                <tr>
+                                    <th>Dispatch Code</th>
+                                    <th>Dispatch Date</th>
+                                    <th>Comments</th>
+                                    <th>Dispatcher</th>
+                                    <th>Action</th>
+                                </tr>
+                                <tr ng-repeat="calldetail in vm.calldetails">
+                                    
+                                        <td><small>{{calldetail.DispatchCode}}</small></td>
+                                        <td><small>{{calldetail.DispatchTime | date: 'MM/dd/yyyy hh:mm a'}}</small></td>
+                                        <td><small>{{calldetail.Comments}}</small></td>
+                                        <td title="Contact #: {{calldetail.DispatcherPhone}}" ><small>{{calldetail.Dispatcher}}</small></td>
+                                        <td align="justify">
+                                            <small>
+                                                <add-edit-ctdetail name="Edit" title="Edit Details"
+                                                                   save-function="vm.createUpdateDetail"
+                                                                   edit-call="vm.ctcalls"
+                                                                   edit-details="calldetail"
+                                                                   refresh-calldetails="vm.getAllCallDetails"
+                                                                   dispatcher-list="vm.dispatchers"
+                                                                   dispatchcode-list="vm.dpcodes"
+                                                                   ng-show="vm.EditMode "
+                                                                   style="float: left; margin-right: 10px;"></add-edit-ctdetail>
+                                                <a ng-click="vm.deleteCtcalldetails(calldetail, $index)" ng-show="vm.EditMode" href="javascript:void(0);">Delete</a>
+                                            </small>
+                                        </td>
+                                </tr>
+                            </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- End Call Details View  -->
+
+        <!-- Begin Administer Dispatchers -->
+        <div ng-switch-when="dispatch">
+            <p></p>
+            <h2>Dispatcher Details</h2>
+            <label>Search: <input ng-model="vm.searchText"></label>
+
+
+            <add-edit-dispatcher name="Add Dispatcher" title="Add New Dispatcher"
+                                 save-function="vm.createUpdateDispatcher"
+                                 refresh-dispatchers="vm.getAllDispatchers"
+                                 ng-show="vm.EditMode "></add-edit-dispatcher>
+
+            <table width="75%" class="table table-striped">
+                <tr width="75%">
+                    <th align="justify">
+                        <a ng-click="vm.order('DispatcherName')">Dispatcher</a>
+                        <span class="sortorder" ng-show="vm.predicate === 'DispatcherName'" ng-class="{reverse:vm.reverse}"></span>
+                    </th>
+                    <th align="justify">
+                        <a ng-click="vm.order('CellPhone')">Cell Phone</a>
+                        <span class="sortorder" ng-show="vm.predicate === 'CellPhone'" ng-class="{reverse:vm.reverse}"></span>
+                    </th>
+                    <th align="justify">
+                        <a ng-click="vm.order('HomePhone')">Home Phone</a>
+                        <span class="sortorder" ng-show="vm.predicate === 'HomePhone'" ng-class="{reverse:vm.reverse}"></span>
+                    </th>
+                    <th align="justify">
+                        <a ng-click="vm.order('AltPhone')">Alternate Phone</a>
+                        <span class="sortorder" ng-show="vm.predicate === 'AltPhone'" ng-class="{reverse:vm.reverse}"></span>
+                    </th>
+                    <th align="justify"  >Action</th>
+                    <th></th>
+                </tr>
+                <tr ng-repeat="dispatcher in vm.dispatchers | orderBy:vm.predicate:vm.reverse | filter:vm.searchText">
+                    <td>{{dispatcher.DispatcherName}}</td>
+                    <td>{{dispatcher.CellPhone}}</td>
+                    <td>{{dispatcher.HomePhone}}</td>
+                    <td>{{dispatcher.AltPhone}}</td>
+                    <td align="justify">
+                        <add-edit-dispatcher name="Edit" title="Edit Dispatcher"
+                                             save-function="vm.createUpdateDispatcher"
+                                             refresh-dispatchers="vm.getAllDispatchers"
+                                             edit-dispatcher="dispatcher"
+                                             ng-show="vm.EditMode "
+                                             style="float: left; margin-right: 10px;"></add-edit-dispatcher>
+                        <a ng-click="vm.deleteDispatcher(dispatcher, $index)" ng-show="vm.EditMode" href="javascript:void(0);">Delete</a>
+                    </td>
+
+                </tr>
+
+            </table>
+        </div>
+        <!-- End Administer Dispatchers -->
+
+        <!-- Begin Administrer Dispatch Codes -->
+        <div ng-switch-when="dpcode">
+            <p></p>
+            <h2>Dispatch Code Details</h2>
+            <label>Search: <input ng-model="vm.searchText"></label>
+
+
+            <add-edit-dpcode name="Add Dispatch Code" title="Add New Dispatch Code"
+                             save-function="vm.createUpdateDPCode"
+                             refresh-dpcodes="vm.getAllDPCodes"
+                             ng-show="vm.EditMode "></add-edit-dpcode>
+
+            <table align="center" width="50%" class="table table-striped">
+                <tr>
+                    <th align="justify">
+                        <a ng-click="vm.order('DispatchCodeName')">Dispatch Code Name</a>
+                        <span class="sortorder" ng-show="vm.predicate === 'DispatchCodeName'" ng-class="{reverse:vm.reverse}"></span>
+                    </th>
+                    <th align="justify">Action</th>
+                </tr>
+                <tr ng-repeat="dpcode in vm.dpcodes | orderBy:vm.predicate:vm.reverse | filter:vm.searchText">
+                    <td>{{dpcode.DispatchCodeName}}</td>
+                    <td align="justify">
+                        <add-edit-dpcode name="Edit" title="Edit Dispatch Code"
+                                         save-function="vm.createUpdateDPCode"
+                                         refresh-dpcodes="vm.getAllDPCodes"
+                                         edit-entity="dpcode"
+                                         ng-show="vm.EditMode "
+                                         style="float: left; margin-right: 10px;"></add-edit-dpcode>
+                        <a ng-click="vm.deleteDPCode(dpcode, $index)" ng-show="vm.EditMode" href="javascript:void(0);">Delete</a>
+                    </td>
+
+                </tr>
+
+            </table>
+        </div>
+        <!-- End Administer Dispatch Codes -->
+
+        <!-- Begin Administrer Regions -->
+        <div ng-switch-when="regions">
+            <p></p>
+            <h2>Region Details</h2>
+            <label>Search: <input ng-model="vm.searchText"></label>
+
+
+            <add-edit-region name="Add Region" title="Add New Region"
+                             save-region="vm.createUpdateCity"
+                             refresh-regions="vm.getAllCitys"
+                             ng-show="vm.EditMode "></add-edit-region>
+       
+
+            <table width="90%" class="table table-striped">
+                <tr>
+                    <th align="justify">
+                        <a ng-click="vm.order('CityName')">City Name</a>
+                        <span class="sortorder" ng-show="vm.predicate === 'CityName'" ng-class="{reverse:vm.reverse}"></span>
+                    </th>
+                    <th align="justify">
+                        <a ng-click="vm.order('RegionName')">Region Name</a>
+                        <span class="sortorder" ng-show="vm.predicate === 'RegionName'" ng-class="{reverse:vm.reverse}"></span>
+                    </th>
+                    <th align="justify">
+                        <a ng-click="vm.order('UtilityType')">Utility Type</a>
+                        <span class="sortorder" ng-show="vm.predicate === 'UtilityType'" ng-class="{reverse:vm.reverse}"></span>
+                    </th>
+                    <th align="justify">Action</th>
+                </tr>
+                <tr ng-repeat="city in vm.citys | orderBy:vm.predicate:vm.reverse | filter:vm.searchText ">
+                    <td>{{city.CityName}}</td>
+                    <td>{{city.RegionName}}</td>
+                    <td>{{city.UtilityType}}</td>
+                    <td align="justify">
+                        <add-edit-region name="Edit" title="Edit Region"
+                                         save-region="vm.createUpdateCity"
+                                         refresh-regions="vm.getAllCitys"
+                                         edit-region="city"
+                                         ng-show="vm.EditMode "
+                                         style="float: left; margin-right: 10px;"></add-edit-region>
+                        <a ng-click="vm.deleteCity(city, $index)" ng-show="vm.EditMode" href="javascript:void(0);">Delete</a>
+                    </td>
+
+                </tr>
+
+            </table>
+        </div>
+        <!-- End Administer Regions -->
+
+    </div>
+</div>

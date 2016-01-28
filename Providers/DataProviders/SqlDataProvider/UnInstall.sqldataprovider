@@ -1,0 +1,18 @@
+﻿IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}CTLiteAdmin_Items]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}CTLiteAdmin_Items]
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}CTLiteAdmin_Citys]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}CTLiteAdmin_Citys]
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}CTLiteAdmin_DPCodes]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}CTLiteAdmin_DPCodes]
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}CTLiteAdmin_Dispatchers]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}CTLiteAdmin_Dispatchers]
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}CTLiteAdmin_CTCalls]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}CTLiteAdmin_CTCalls]
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}CTLiteAdmin_CTCallDetails]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}CTLiteAdmin_CTCallDetails]
+GO

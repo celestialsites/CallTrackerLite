@@ -1,0 +1,196 @@
+﻿/************************************************************/
+/*****              SqlDataProvider                     *****/
+/*****                                                  *****/
+/*****                                                  *****/
+/***** Note: To manually execute this script you must   *****/
+/*****       perform a search and replace operation     *****/
+/*****       for {databaseOwner} and {objectQualifier}  *****/
+/*****                                                  *****/
+/************************************************************/
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}CTLiteAdmin_Items]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}CTLiteAdmin_Items]
+GO
+
+CREATE TABLE {databaseOwner}{objectQualifier}CTLiteAdmin_Items
+    (
+    ItemId bigint NOT NULL IDENTITY (1, 1),
+    ItemName nvarchar(MAX) NOT NULL,
+    ItemDescription nvarchar(MAX) NOT NULL,
+    AssignedUserId bigint NULL,
+    ModuleId bigint NOT NULL,
+    CreatedOnDate datetime NOT NULL,
+    CreatedByUserId bigint NOT NULL,
+    LastModifiedOnDate datetime NOT NULL,
+    LastModifiedByUserId bigint NOT NULL
+    )  ON [PRIMARY]
+     TEXTIMAGE_ON [PRIMARY]
+GO
+
+
+ALTER TABLE {databaseOwner}{objectQualifier}CTLiteAdmin_Items ADD CONSTRAINT
+    PK_{objectQualifier}CTLiteAdmin_Items PRIMARY KEY CLUSTERED 
+    (
+    ItemId
+    ) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}CTLiteAdmin_Citys]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}CTLiteAdmin_Citys]
+GO
+
+CREATE TABLE {databaseOwner}{objectQualifier}CTLiteAdmin_Citys
+    (
+	CityId bigint NOT NULL IDENTITY (1, 1),
+	CityName varchar(150) NULL,
+	RegionName varchar(150) NULL,
+	UtilityType varchar(55) NULL,
+	CreatedByUserId bigint NULL,
+	CreatedOnDate date NULL,
+	ModuleId bigint NULL,
+	LastModifiedOnDate date NULL,
+	LastModifiedByUserId bigint NULL
+    )  ON [PRIMARY]
+     TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+ALTER TABLE {databaseOwner}{objectQualifier}CTLiteAdmin_Citys ADD CONSTRAINT
+    PK_{objectQualifier}CTLiteAdmin_Citys PRIMARY KEY CLUSTERED 
+    (
+    CityId
+    ) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}CTLiteAdmin_DPCodes]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}CTLiteAdmin_DPCodes]
+GO
+
+CREATE TABLE {databaseOwner}{objectQualifier}CTLiteAdmin_DPCodes
+    (
+	DispatchCodeId bigint NOT NULL IDENTITY (1, 1),
+	DispatchCodeName varchar(150) NULL,
+	CreatedByUserId bigint NULL,
+	CreatedOnDate date NULL,
+	ModuleId bigint NULL,
+	LastModifiedOnDate date NULL,
+	LastModifiedByUserId bigint NULL
+    )  ON [PRIMARY]
+     TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+ALTER TABLE {databaseOwner}{objectQualifier}CTLiteAdmin_DPCodes ADD CONSTRAINT
+    PK_{objectQualifier}CTLiteAdmin_DPCodes PRIMARY KEY CLUSTERED 
+    (
+    DispatchCodeId
+    ) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}CTLiteAdmin_Dispatchers]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}CTLiteAdmin_Dispatchers]
+GO
+
+CREATE TABLE {databaseOwner}{objectQualifier}CTLiteAdmin_Dispatchers
+    (
+	DispatcherId bigint NOT NULL IDENTITY (1, 1),
+	DispatcherName varchar(150) NULL,
+	DispatcherType varchar(50) NULL,
+	CellPhone bigint NULL,
+	HomePhone bigint NULL,
+	AltPhone bigint NULL,
+	CreatedByUserId bigint NULL,
+	CreatedOnDate date NULL,
+	ModuleId bigint NULL,
+	LastModifiedOnDate date NULL,
+	LastModifiedByUserId bigint NULL
+    )  ON [PRIMARY]
+     TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+ALTER TABLE {databaseOwner}{objectQualifier}CTLiteAdmin_Dispatchers ADD CONSTRAINT
+    PK_{objectQualifier}CTLiteAdmin_Dispatchers PRIMARY KEY CLUSTERED 
+    (
+    DispatcherId
+    ) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}CTLiteAdmin_CTCalls]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}CTLiteAdmin_CTCalls]
+GO
+
+CREATE TABLE {databaseOwner}{objectQualifier}CTLiteAdmin_CTCalls
+    (
+	CallId bigint IDENTITY(1,1) NOT NULL,
+	CallDate datetime NULL,
+	CallerName varchar(50) NULL,
+	CallerAddress varchar(150) NULL,
+	CallerCity varchar(50) NULL,
+	CityId bigint NULL,
+	Region varchar(50) NULL,
+	UtilityType varchar(25) NULL,
+	CallBackNumber bigint NULL,
+	CrossStreet varchar(50) NULL,
+	Comments varchar(max) NULL,
+	CallType varchar(50) NULL,
+	DispatchFlag tinyint NULL,
+	CSR varchar(100) NULL,
+	CreatedByUserId bigint NULL,
+	CreatedOnDate date NULL,
+	ModuleId bigint NULL,
+	LastModifiedOnDate date NULL,
+	LastModifiedByUserId bigint NULL
+    )  ON [PRIMARY]
+     TEXTIMAGE_ON [PRIMARY]
+GO
+
+
+ALTER TABLE {databaseOwner}{objectQualifier}CTLiteAdmin_CTCalls ADD CONSTRAINT
+    PK_{objectQualifier}CTLiteAdmin_CTCalls PRIMARY KEY CLUSTERED 
+    (
+    CallId
+    ) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}CTLiteAdmin_CTCallDetails') AND type in (N'U'))
+DROP TABLE {databaseOwner}{objectQualifier}CTLiteAdmin_CTCallDetails
+GO
+
+CREATE TABLE {databaseOwner}{objectQualifier}CTLiteAdmin_CTCallDetails
+    (
+	CallDetailId bigint IDENTITY(1,1) NOT NULL,
+	CallID bigint NULL,
+	DispatchCode varchar(255) NULL,
+	DispatchCodeId bigint NULL,
+	DispatchTime datetime NULL,
+	Comments varchar(255) NULL,
+	Dispatcher varchar(255) NULL,
+	DispatcherId bigint NULL,
+	DispatcherPhone bigint NULL,
+	CreatedByUserId bigint NULL,
+	CreatedOnDate date NULL,
+	ModuleId bigint NULL,
+	LastModifiedOnDate date NULL,
+	LastModifiedByUserId bigint NULL
+    )  ON [PRIMARY]
+     TEXTIMAGE_ON [PRIMARY]
+GO
+
+ALTER TABLE {databaseOwner}{objectQualifier}CTLiteAdmin_CTCallDetails ADD CONSTRAINT
+    PK_{objectQualifier}CTLiteAdmin_CTCallDetails PRIMARY KEY CLUSTERED 
+    (
+    CallDetailId
+    ) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+
+
+/************************************************************/
+/*****              SqlDataProvider                     *****/
+/************************************************************/

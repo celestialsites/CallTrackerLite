@@ -1,0 +1,76 @@
+﻿
+<div class='calldetails-addedit-container'>
+    <a ng-click="showAddEdit()" href="javascript:void(0);">{{Name}}</a>
+
+    <div  class="modal fade" id="mdlAddEditCalldetails-{{editDetails.CallDetailId}}" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                
+                <div class="modal-header">
+                    <h3>{{title}}</h3>
+                </div>
+                <div ng-form="nwscCalldetailsForm" class="dnnForm">
+                    <fieldset>
+                        <legend></legend>
+                        <p></p>
+                        <div class="dnnFormCalldetails">
+                            <label class="dnnLabel" for="ddlAssignedDpcode">Dispatch Code</label>
+                            <select name="ddlAssignedDpcode"
+                                    tabindex="1"
+                                    ng-model="editDetails.DispatchCodeId" ,
+                                    ng-options="dp.DispatchCodeId as dp.DispatchCodeName for dp in dispatchcodeList" required></select>
+                            <span style="display: inline;" class="dnnFormMessage dnnFormError"
+                                  ng-show="(dnnFormCalldetails.ddlAssignedDpcode.$dirty || invalidSubmitAttempt) && dnnFormCalldetails.ddlAssignedDpcode.$error.required">
+                                Dispatch Code is required
+                            </span>
+                        </div>
+                        <p></p>
+                        <div class="dnnFormCalldetails">
+                            <label class="dnnLabel" for="ddlAssignedDispatcher">Dispatcher Name</label>
+                            <select title="Contact #:  {{editDetails.DispatcherPhone}}  " 
+                                    name="ddlAssignedDispatcher"
+                                    tabindex="2"
+                                    ng-model="editDetails.DispatcherId" ,
+                                    ng-options="dpr.DispatcherId as dpr.DispatcherName for dpr in dispatcherList" required></select>
+                            <span style="display: inline;" class="dnnFormMessage dnnFormError"
+                                  ng-show="(dnnFormCalldetails.ddlAssignedDispatcher.$dirty || invalidSubmitAttempt) && dnnFormCalldetails.ddlAssignedDispatcher.$error.required">
+                                Dispatcher Name is required
+                            </span>
+                        </div>
+                        <p></p>
+                        <div class="dnnFormCalldetails">
+                            <label class="dnnLabel" for="txtComments">Comments</label>
+                            <textarea id="txtComments" name="txtComments"
+                                      ng-model="editDetails.Comments"
+                                      tabindex="3"
+                                      rows="3"
+                                      placeholder="Enter Comments"
+                                      class="input"
+                                      type="text" required />
+                            <span style="display: inline;" class="dnnFormMessage dnnFormError"
+                                  ng-show="(nwscCalldetailsForm.txtComments.$dirty || invalidSubmitAttempt) && nwscCalldetailsForm.txtComments.$error.required">
+                                Comments are required
+                            </span>
+                        </div>
+                        <p></p>
+                        <div class="dnnFormCalldetails">
+                            <label class="dnnLabel" for="chkBoxDispatched">Check if Dispatched</label>
+                            <input type="checkbox"
+                                   ng-model="chkBoxDispatchFlag"
+                                   name="chkBoxDispatched"
+                                   ng-true-value="1"
+                                   ng-false-value="0" />
+                        </div>
+                    </fieldset>
+                </div>
+                <p></p>
+                <div class="modal-footer">
+                    <div class="btn-block">
+                        <button type="button" class="dnnSecondaryAction" ng-click="cancelButton()">Cancel</button>
+                        <button type="button" class="dnnPrimaryAction" ng-click="saveButton($event, nwscCalldetailsForm)">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

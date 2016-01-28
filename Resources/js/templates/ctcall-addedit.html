@@ -1,0 +1,122 @@
+﻿<div class='ctcall-addedit-container'>
+    <a ng-click="showAddEdit()" href="javascript:void(0);">{{Name}}</a>
+
+    <div class="modal fade" id="mdlAddEditCtcall-{{editCtcall.CallId}}" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>{{title}}</h3>
+                </div>
+                <div ng-form="nwscCTCallForm" class="dnnForm">
+                    <fieldset>
+                        <legend></legend>
+                        <div class="dnnFormCTCall">
+                            <label class="dnnLabel" for="txtCTCallType">Call Type</label>
+                            <input id="txtCTCallType" name="txtCTCallType"
+                                   ng-model="editCtcall.CallType"
+                                   tabindex="1"
+                                   placeholder="Enter Call Type"
+                                   class="input"
+                                   type="text" required />
+                            <span style="display: inline;" class="dnnFormMessage dnnFormError"
+                                  ng-show="(nwscCTCallForm.txtCTCallType.$dirty || invalidSubmitAttempt) && nwscCTCallForm.txtCTCallType.$error.required">
+                                Call Type is required
+                            </span>
+                        </div>
+                        <p></p>
+                        <div class="dnnFormCTCall">
+                            <label class="dnnLabel" for="txtCallerName">Caller Name</label>
+                            <input id="txtCallerName" name="txtCallerName"
+                                   ng-model="editCtcall.CallerName"
+                                   tabindex="2"
+                                   placeholder="Enter Caller Name"
+                                   class="input"
+                                   type="text" required />
+                            <span style="display: inline;" class="dnnFormMessage dnnFormError"
+                                  ng-show="(nwscCTCallForm.txtCallerName.$dirty || invalidSubmitAttempt) && nwscCTCallForm.txtCallerName.$error.required">
+                                Caller Name is required
+                            </span>
+                        </div>
+                        <p></p>
+                        <div class="dnnFormCTCall">
+                            <label class="dnnLabel" for="txtCallerAddress">Caller Address</label>
+                            <input id="txtCallerAddress" name="txtCallerAddress"
+                                   ng-model="editCtcall.CallerAddress"
+                                   tabindex="3"
+                                   placeholder="Enter Caller Address"
+                                   class="input"
+                                   type="text" required />
+                            <span style="display: inline;" class="dnnFormMessage dnnFormError"
+                                  ng-show="(nwscCTCallForm.txtCallerAddress.$dirty || invalidSubmitAttempt) && nwscCTCallForm.txtCallerAddress.$error.required">
+                                Caller Address is required
+                            </span>
+                        </div>
+                        <p></p>
+                        <div class="dnnFormCTCall">
+                            <label class="dnnLabel" for="ddlAssignedCity">City Id</label>
+                            <select name="ddlAssignedCity"
+                                    tabindex="5"
+                                    ng-model="editCtcall.CityId" ,
+                                    ng-options="cities.CityId as cities.CityName for cities in cityList | orderBy:'CityName'" required></select>
+                            <span style="display: inline;" class="dnnFormMessage dnnFormError"
+                                  ng-show="(dnnFormCTCall.ddlAssignedCity.$dirty || invalidSubmitAttempt) && dnnFormCTCall.ddlAssignedCity.$error.required">
+                                City Name Id is required
+                            </span>
+                        </div>
+                        <p></p>
+                        <div class="dnnFormCTCall">
+                            <label class="dnnLabel" for="txtCTCallBackNumber">Call Back #</label>
+                            <input id="txtCTCallBackNumber" name="txtCTCallBackNumber"
+                                   ng-model="editCtcall.CallBackNumber"
+                                   tabindex="6"
+                                   placeholder="Enter Call Back Number"
+                                   class="input"
+                                   type="text" required />
+                            <span style="display: inline;" class="dnnFormMessage dnnFormError"
+                                  ng-show="(nwscCTCallForm.txtCTCallBackNumber.$dirty || invalidSubmitAttempt) && nwscCTCallForm.txtCTCallBackNumber.$error.required">
+                                Call back number is required
+                            </span>
+                        </div>
+                        <p></p>
+                        <div class="dnnFormCTCall">
+                            <label class="dnnLabel" for="txtComments">Comments</label>
+                            <textarea id="txtComments" name="txtComments"
+                                      ng-model="editCtcall.Comments"
+                                      tabindex="7"
+                                      rows="3"
+                                      placeholder="Enter Comments"
+                                      class="input"
+                                      type="text" required />
+                            <span style="display: inline;" class="dnnFormMessage dnnFormError"
+                                  ng-show="(nwscCTCallForm.txtComments.$dirty || invalidSubmitAttempt) && nwscCTCallForm.txtComments.$error.required">
+                                Comments are required
+                            </span>
+                        </div>
+                        <p></p>
+                        <div class="dnnFormCTCall">
+                            <label class="dnnLabel" for="txtCrossStreet" tabindex="-1">Cross Street</label>
+                            <textarea name="txtCrossStreet"
+                                      ng-model="editCtcall.CrossStreet"
+                                      tabindex="8"
+                                      type="text"
+                                      rows="3"
+                                      class="input"
+                                      placeholder="Enter Cross Street" required />
+                            <span style="display: inline;" class="dnnFormMessage dnnFormError"
+                                  ng-show="(dnnFormCTCall.txtCrossStreet.$dirty || invalidSubmitAttempt) && dnnFormCTCall.txtCrossStreet.$error.required">
+                                Cross Street is required
+                            </span>
+                        </div>
+                    </fieldset>
+                </div>
+                <p></p>
+                <div class="modal-footer">
+                    <div class="btn-block">
+                        <button type="button" class="dnnSecondaryAction" ng-click="cancelButton()">Cancel</button>
+                        <button type="button" class="dnnPrimaryAction" ng-click="saveButton($event, nwscCTCallForm)">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

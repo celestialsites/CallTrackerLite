@@ -63,3 +63,4 @@ You will be prompted for the following information:
 •	Check if Dispatched:  Check the box if the call is being dispatched otherwise leave it open
 •	Save Dispatch: Logs the dispatch into the table below.
 
+
